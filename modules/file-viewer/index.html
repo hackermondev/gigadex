@@ -202,58 +202,8 @@
 			</div>
 		</template>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-    /* RENDERING FUNCTIONALITY */
-
-    var testObject = {
-      uniqeIDdf : {
-        name : "The Book of Pottery",
-        size : 5 + "kb",
-        created : "2/7/20 9:51:10 PM",
-        modified : "2/7/20 9:51:10 PM",
-        fileid : "rrewfjcm"
-      },
-
-      uniqeIDfsf : {
-        name : "some random file",
-        size : 25 + "GB",
-        created : "2/7/20 9:51:10 PM",
-        modified : "2/7/20 9:51:10 PM",
-        fileid : "rrfwfjcm"
-      },
-
-      uniqeIDfsf : {
-        name : "some random file",
-        size : 25 + "GB",
-        created : "2/7/20 9:51:10 PM",
-        modified : "2/7/20 9:51:10 PM",
-        fileid : "rrfwfjcm"
-      }
-    }
-
-    function renderTestObject() {
-      let testObjectArray = Object.entries(testObject);
-      
-      if ( testObjectArray.length >= 1) 
-        for (object of testObjectArray) {
-          let targetObject = object[1]
-          
-          $('.list-items').append (` 
-            <div class="file">
-              <p class="file-name">${targetObject.name}</p>
-              <p class="file-size">${targetObject.size}</p>
-              <p class="file-datec">${targetObject.created}</p>
-              <p class="file-datem">${targetObject.modified}</p>
-              <p class="file-id">${targetObject.fileid}</p>
-              <button class="file-delete">Delete</button>
-            </div>
-          `)
-        }
-    }
-
-    renderTestObject()
-    </script>
-		<script src="/js/file-viewer.js"></script>
+    
+		<script src="js/file-viewer.js"></script>
 		</script>
 	</body>
 </html>
