@@ -16,7 +16,6 @@ app.use(express.static('public'));
 app.set('view-engine', 'ejs');
 
 var apps = os.apps;
-console.log(apps);
 var tabs = [];
 
 app.use((req, res, next) => { // defaults for ejs code
@@ -25,9 +24,9 @@ app.use((req, res, next) => { // defaults for ejs code
 	res.locals.message = null;
 	res.locals.apps = apps;
 	next();
-})
+});
 
-app.get('/', (req, res) => { // 
+app.get('/', (req, res) => { // Redirect to home
 	res.redirect('/app/home');
 });
 
@@ -46,7 +45,6 @@ app.get('/app/:q', (req, res) => { // Main path for module
 app.get('/app/:q/*', (req, res) => { // Static files for modules
 	let q = req.params.q;
 	let file = req.path.replace(`/app/${q}/`, '');
-	console.log(file);
 	let app = apps.find(el => el.name === q);
 	if (app) {
 		res.sendFile(`${__dirname}/modules/${app.name}/${file}`);
