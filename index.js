@@ -2,6 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+const port = 3000;
 
 const os = require('./os.js');
 
@@ -53,7 +54,7 @@ app.get('/app/:q/*', (req, res) => { // Static files for modules
 	}
 });
 
-http.listen(3000, () => console.log('server started'));
+http.listen(port, () => console.log('server started'));
 
 io.engine.generateId = (req) => {
 	return randHex(6);
@@ -83,3 +84,5 @@ function randHex(len) {
 function copy(arr) {
 	return JSON.parse(JSON.stringify(arr));
 }
+
+nw.Window.open(`localhost:${port}`);
