@@ -1,4 +1,4 @@
 {
   "name": "gigadex-test",
-  "main": "index.js"
+  "main": "app.js"
 }
