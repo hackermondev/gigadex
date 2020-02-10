@@ -89,4 +89,4 @@ app.get('/app/:appName/*', (req, res) => {
 http.listen(port, console.log(`Server started on *:${port}`));
 
 // GUI
-nw.Window.open(`localhost:${port}`);
+// nw.Window.open(`localhost:${port}`); // Still not working
