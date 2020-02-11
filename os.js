@@ -3,7 +3,8 @@ const fs = require('fs');
 class App {
 	constructor(name) {
 		this.name = name;
-		app = {
+		this.path = 'apps/' + this.name;
+		this.app = {
 			install: function() {},
 			uninstall: function() {},
 			open: function() {},
@@ -11,13 +12,16 @@ class App {
 			update: function() {},
 			restart: function() {}
 		};
-		database = {
-			setItem: function() {
-				fs.writeFileSync();
+		this.database = {
+			setItem: function(key, value) {
+				fs.writeFileSync(`${this.path}/.db/${key}`, JSON.stringify(value), 'utf8');
 			},
-			getItem: function() {}
+			getItem: function(key) {
+				let json = fs.readFileSync(`${this.path}/.db/${key}`, 'utf8');
+				return JSON.parse(json);
+			}
 		};
-		settings = {
+		this.settings = {
 			defaultApp: function() {},
 			timeFormat: function() {},
 			taskbar: {
@@ -27,7 +31,7 @@ class App {
 			},
 			setTimeZone: function() {}
 		};
-		users = {
+		this.users = {
 			add: function() {},
 			remove: function() {},
 			check: function() {},
@@ -37,4 +41,4 @@ class App {
 	}
 }
 
-module.exports = os;
+module.exports = App;
