@@ -1,12 +1,9 @@
-const fs = require('fs');
-const bodyParser = require('body-parser');
-// const ejs = require('ejs');
-
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
-// const io = require('socket.io').listen(http);
 const port = 3000;
+
+const fs = require('fs');
 
 let appsFolder = "apps/";
 let apps = [];
@@ -35,22 +32,47 @@ function updateApps(verbose=false) {
     }
   });
 }
-
 updateApps();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Find App
+function findApp(appName) {
+  return apps.filter(app => {
+    return app.name.toLowerCase() === appName.toLowerCase();
+  })[0];
+}
 
-app.use(express.static('public'));
-// app.set('view-engine', 'ejs');
+// Run App
+function runApp(appName) {
+  let app = findApp(appName);
 
-// app.use((req, res, next) => { // defaults for ejs code
-// 	res.locals.title = null;
-// 	res.locals.content = null;
-// 	res.locals.message = null;
-// 	res.locals.apps = apps;
-// 	next();
-// });
+  let uuid = (function() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == "x" ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  })();
+
+  // fs.mkdirSync(__dirname + "/running/" + uuid);
+
+  let walkSync = function(dir, filelist=[]) {
+    let files = fs.readdirSync(dir);
+
+    files.forEach(function(file) {
+      if (fs.statSync(dir + "/" + file).isDirectory()) {
+        filelist = walkSync(dir + file + '/', filelist);
+      }
+      else {
+        filelist.push(file);
+      }
+    });
+    return filelist;
+  };
+
+  let files = walkSync(__dirname + "/" + app.path);
+  console.log(files);
+}
+
+runApp("File Viewer");
 
 // Home
 app.get('/', (req, res) => {
@@ -60,7 +82,7 @@ app.get('/', (req, res) => {
 // Icons
 app.get('/icon/:appName', (req, res) => {
   let appName = req.params.appName;
-  let app = apps.filter(app => app.name === appName)[0];
+  let app = findApp(appName);
 
   if(app && app.icon) return res.sendFile(__dirname + "/" + app.icon);
   return res.sendFile(__dirname + "/assets/icons/unknown.png");
@@ -69,7 +91,7 @@ app.get('/icon/:appName', (req, res) => {
 // App Main
 app.get('/app/:appName', (req, res) => {
   let appName = req.params.appName;
-  let app = apps.filter(app => app.name === appName)[0];
+  let app = findApp(appName);
 
   if(app) return res.sendFile(__dirname + "/" + app.main);
   return res.status(404);
@@ -79,9 +101,20 @@ app.get('/app/:appName', (req, res) => {
 app.get('/app/:appName/*', (req, res) => {
   let appName = req.params.appName;
   let filePath = req.path.replace(`/app/${appName}/`, "");
-  let app = apps.filter(app => app.name === appName)[0];
+  let app = findApp(appName);
 
   if(app) return res.sendFile(__dirname + "/" + app.path + filePath);
+  return res.status(404);
+});
+
+// App Data
+app.get("/appdata/:appName", (req, res) => {
+  let appName = req.params.appName;
+  let app = findApp(appName);
+
+  res.setHeader("Content-Type", "application/json");
+
+  if(app) return res.json(app);
   return res.status(404);
 });
 
