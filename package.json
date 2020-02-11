@@ -2,6 +2,7 @@
   "name": "gigadex-test",
   "main": "app.js",
   "dependencies": {
-    "fs-extra": "^8.1.0"
+    "ejs": "^3.0.1",
+    "jquery": "^3.4.1"
   }
 }
