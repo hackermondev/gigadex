@@ -1,3 +1,3 @@
-test = {
-  msg: "Hello, World!"
+module.exports = function(__rootdir) {
+  this.msg = "Hello, World!";
 }
