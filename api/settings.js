@@ -1,1 +1,1 @@
-modules.exports = require("fs").readFileSync("settings.json").toJSON();
+modules.exports = require("fs").readFileSync("../settings.json").toJSON();
