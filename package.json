@@ -1,7 +1,7 @@
 {
-  "name": "gigadex-test",
-  "main": "app.js",
+  "name": "gigadex-redesign",
+  "main": "server.js",
   "dependencies": {
-    "fs-extra": "^8.1.0"
+    "express": "^4.17.1"
   }
 }
