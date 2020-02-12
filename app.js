@@ -1,34 +1,10 @@
 const {readdirSync, existsSync} = require("fs");
 
-let apis = [];
-let apps = [];
+const apiHandler = require("./handlers/apihandler.js")();
+const appHandler = require("./handlers/apphandler.js")();
 
-function reloadAPIs() {
-  readdirSync(`${__dirname}/apis`).map(apiName => {
-    let api = {};
-
-    api.name = apiName;
-    api.path = `${__dirname}/apis/`;
-
-    apis.push(api);
-  });
-}
-reloadAPIs();
-
-function reloadApps() {
-  readdirSync(`${__dirname}/apps`).map(appName => {
-    let app = require(`${__dirname}/apps/${appName}/metadata.json`);
-    app.path = `${__dirname}/apps/${appName}/`;
-
-    if(!app.name || !app.main || !app.author) return;
-
-    apps.push(app);
-  });
-}
-reloadApps();
-
-console.log(apis);
-console.log(apps);
+console.log(apiHandler.apis);
+console.log(appHandler.apps);
 
 const app = require("express")();
 
@@ -45,4 +21,4 @@ app.get("/:appName/*", (req, res) => {
   else res.status(404);
 });
 
-app.listen(3000, console.log("Server started on *:3000"));
+app.listen(process.env.PORT | 3000, console.log(`Server started on *:${process.env.PORT | 3000}`));
