@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+* {
+    max-width: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #000000cc;
+
+    height: 90vh;
+
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    max-width: 1080px;
+    max-height: 640px;
+
+    border-radius: 8px;
+
+    background-color: #fff;
+}
+
+.title {
+    font-size: 3em;
+    font-weight: 900;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+[type='text'], [type='password'] {
+    font-weight: 500;
+    padding: 12px 24px;
+    margin: 8px 16px;
+    font-size: 0.9em;
+    background-color: #00000099;
+    color: #ffffff;
+    outline: none !important;
+    border: none;
+    border-radius: 4px;
+}
+
+[type='text']:focus, [type='password']:focus {
+    box-shadow: #6666ff 1px 1px 12px;
+}
+
+[type='submit'] {
+    text-transform: uppercase;
+    padding: 12px 24px;
+    margin: 32px 12px;
+    background: seagreen;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+[type='submit']:hover {
+    background: darkgreen;
+}
+
+[type='reset'] {
+    text-transform: uppercase;
+    padding: 12px 24px;
+    margin: 32px 12px;
+    background: #dcdc00;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+[type='reset']:hover {
+    background: #cccc00;
+}
+
+::placeholder {
+    color: #cccccc;
+    font-size: 0.9em;
+}
