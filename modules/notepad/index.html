@@ -4,10 +4,57 @@
 		<button>Save</button>
 		<button>Save as</button>
 		<button>Open</button>
-        <button>Download</button>
-		<p id="lastsaved">Untitled.txt (Saved)</p>
+		<button id="download-button" onclick="download()">Download</button>
+		<p id="name">Untitled.txt</p>
 	</div>
 	<div class="main">
 		<textarea id="note" height="120" value="" placeholder="This is where the magic happens"></textarea>
 	</div>
 </div>
+<script>
+    const name = document.getElementById("name")
+    const note = document.getElementById("note")
+    const downloadButton = document.getElementById("download-button")
+    name.addEventListener("click",(e)=>{
+        e.preventDefault()
+        input = document.createElement("input")
+        input.setAttribute("type","text")
+        input.setAttribute("id","name")
+        input.setAttribute("value",name.innerHTML)
+        input.style.left = name.style.left
+        input.style.right = name.style.right
+        input.style.width = "150px"
+        input.addEventListener("keypress",(e)=>{
+            if(e.keyCode == 13){
+                input.hidden = true
+                name.innerHTML = `${input.value}.txt`
+            }
+        })
+        document.body.append(input)
+    })
+    function download(data, filename, type) {
+    var file = new Blob([note.value], {type: "txt"});
+    if (window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, name.innerHTML);
+        downloadButton.innerHTML = "Downloading..."
+        setTimeout(()=>{
+            downloadButton.innerHTML = "Download"
+        },01)
+    }else {
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = name.innerHTML;
+        document.body.appendChild(a);
+        a.click();
+        downloadButton.innerHTML = "Downloading..."
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+        setTimeout(()=>{
+            downloadButton.innerHTML = "Download"
+        },01)
+    }
+}
+</script>
