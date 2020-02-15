@@ -1,3 +1,3 @@
-module.exports = function(__rootdir) {
-  this.msg = "Hello, World!";
+module.exports = {
+  msg: (name) => `Hello ${name}!`
 }
